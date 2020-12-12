@@ -24,8 +24,8 @@ app.get("/findColleges", async (req, res) => {
     if(req.query.course){
         queryCond.course={$regex:req.query.course,$options:"i"};
     }
-    if(req.query.exam){
-        queryCond.exam =  req.query.exam;
+    if(req.query.exams){
+        queryCond.exam =  {$all: req.query.exams}
     }
     if(req.query.minPackage && !isNaN(Number(req.query.minPackage)) && Number(req.query.minPackage) > 0){
         const curPack = Number(req.query.minPackage);
