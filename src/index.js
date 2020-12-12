@@ -12,27 +12,27 @@ const { connections } = require('mongoose');
 
 app.get("/findColleges", async (req, res) => {
     let queryCond = {}
-    if(req.body.name){
-       queryCond.name={$regex:req.body.name,$options:"i"};
+    if(req.query.name){
+       queryCond.name={$regex:req.query.name,$options:"i"};
     }
-    if(req.body.state){
-        queryCond.state={$regex:req.body.state,$options:"i"};
+    if(req.query.state){
+        queryCond.state={$regex:req.query.state,$options:"i"};
     }
-    if(req.body.city){
-        queryCond.city={$regex:req.body.city,$options:"i"};
+    if(req.query.city){
+        queryCond.city={$regex:req.query.city,$options:"i"};
     }
-    if(req.body.course){
-        queryCond.course={$regex:req.body.course,$options:"i"};
+    if(req.query.course){
+        queryCond.course={$regex:req.query.course,$options:"i"};
     }
-    if(req.body.exams){
-        queryCond.exam =  req.body.exams;
+    if(req.query.exams){
+        queryCond.exam =  req.query.exams;
     }
-    if(req.body.minPackage && !isNaN(Number(req.body.minPackage)) && Number(req.body.minPackage) > 0){
-        const curPack = Number(req.body.minPackage);
+    if(req.query.minPackage && !isNaN(Number(req.query.minPackage)) && Number(req.query.minPackage) > 0){
+        const curPack = Number(req.query.minPackage);
         queryCond.minPackage = { $gte: curPack }
     }
-    if(req.body.maxFees && !isNaN(Number(req.body.maxFees)) && Number(req.body.maxFees) > 0){
-        const curFees = Number(req.body.maxFees);
+    if(req.query.maxFees && !isNaN(Number(req.query.maxFees)) && Number(req.query.maxFees) > 0){
+        const curFees = Number(req.query.maxFees);
         queryCond.maxFees = { $lte: curFees }
     }
     res.send(await connection.find(queryCond));
